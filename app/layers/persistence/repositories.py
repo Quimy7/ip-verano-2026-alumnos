@@ -15,6 +15,7 @@ def saveFavourite(fav):
     return fav
 
 def getAllFavourites(user):
+    return Favourite.objects.filter(user=user)
     """
     Obtiene todos los favoritos de un usuario desde la base de datos.
     """

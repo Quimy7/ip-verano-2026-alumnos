@@ -26,11 +26,67 @@
     </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% if images|length == 0 %}
-        <h2 class="text-center">La búsqueda no arrojó resultados...</h2>
-        {% else %} {% for img in images %}
-        <div class="col">
-            <!-- TODO: la card debe cambiar su border color dependiendo del estado del personaje:
+
+  {% if images|length == 0 %}
+    <div class="col-12">
+      <h2 class="text-center">La búsqueda no arrojó resultados...</h2>
+    </div>
+  {% else %}
+
+    {% for img in images %}
+      <div class="col">
+        <div class="card h-100 shadow-sm border border-3
+    {% if img.status == 'Alive' %}border-success
+    {% elif img.status == 'Deceased' %}border-secondary
+    {% else %}border-warning
+    {% endif %}">
+          <div class="row g-0">
+
+            <!-- Imagen -->
+            <div class="col-md-4 d-flex align-items-center justify-content-center p-2">
+              <img src="{{ img.image }}"
+                   class="img-fluid rounded-circle"
+                   alt="{{ img.name }}">
+            </div>
+
+            <!-- Contenido -->
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title text-center">{{ img.name }}</h5>
+
+                <div class="alert alert-warning p-2 text-center">
+                  "{{ img.phrase }}"
+                </div>
+
+                <p class="card-text mb-1">
+                  <strong>Género:</strong> {{ img.gender }}
+                </p>
+
+                <p class="card-text mb-1">
+                  <strong>Edad:</strong> {{ img.age }} años
+                </p>
+
+                <p class="card-text mb-1">
+                  <strong>Estado:</strong> {{ img.status }}
+                </p>
+
+                <p class="card-text">
+                  <strong>Ocupación:</strong> {{ img.occupation }}
+                </p>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+  {% endif %}
+
+</div>
+
+    <!-- TODO: la card debe cambiar su border color dependiendo del estado del personaje:
                  - Si está "Alive" (Vivo): mostrar borde verde (border-success)
                  - Si está "Deceased" (Fallecido): mostrar borde gris (border-secondary)
                  - Si es cualquier otro estado: mostrar borde naranja (border-warning)
@@ -79,7 +135,7 @@
                             </div>
                         </div>
                     </div>
-                {% endfor %} {% endif %}
+                
             </div>
 </main>
 {% endblock %}
